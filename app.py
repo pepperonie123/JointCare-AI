@@ -6,18 +6,26 @@ st.set_page_config(
     layout="centered"
 )
 
+# -----------------------------
+# TITLE
+# -----------------------------
+
 st.title("🦵 JointCare AI")
 st.subheader("AI-Assisted Osteoarthritis Screening")
 
 st.write(
-    "A preliminary screening tool designed to assist "
-    "healthcare workers in identifying individuals who "
-    "may require further clinical evaluation."
+    "A preliminary screening system designed to "
+    "assist healthcare workers in identifying "
+    "individuals who may require further clinical evaluation."
 )
 
 st.divider()
 
-st.header("Patient Information")
+# -----------------------------
+# PATIENT INFORMATION
+# -----------------------------
+
+st.header("👤 Patient Information")
 
 patient_id = st.text_input("Patient ID")
 
@@ -45,6 +53,10 @@ occupation = st.selectbox(
 )
 
 st.divider()
+
+# -----------------------------
+# SYMPTOMS
+# -----------------------------
 
 st.header("🦵 Joint Symptoms")
 
@@ -77,12 +89,45 @@ stairs = st.radio(
 
 st.divider()
 
-if st.button("Continue to Movement Assessment", type="primary"):
+# -----------------------------
+# MOVEMENT ASSESSMENT
+# -----------------------------
 
-    if patient_id == "":
-        st.warning("Please enter a Patient ID.")
-    else:
-        st.success("Patient information recorded!")
+st.header("🚶 Movement Assessment")
+
+st.write(
+    "Ask the patient to walk approximately "
+    "5 metres in front of the camera."
+)
+
+walking_video = st.file_uploader(
+    "📹 Upload Walking Video",
+    type=["mp4", "mov", "avi"]
+)
+
+if walking_video is not None:
+
+    st.success("Walking video uploaded successfully!")
+
+    st.video(walking_video)
+
+    st.divider()
+
+    if st.button(
+        "🧠 Analyse Movement",
+        type="primary"
+    ):
+
         st.info(
-            "Next step: movement and gait assessment."
+            "Movement analysis module will process "
+            "the video here."
+        )
+
+        st.write("Patient ID:", patient_id)
+        st.write("Age:", age)
+        st.write("Pain Score:", pain)
+
+        st.success(
+            "Video received successfully. "
+            "AI analysis module is ready for the next stage."
         )
